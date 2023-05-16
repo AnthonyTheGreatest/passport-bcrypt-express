@@ -1,0 +1,7 @@
+Start: dbConfig.js
+
+...
+module.exports = {
+    {export(s)}
+    // Exported to: {location}
+};

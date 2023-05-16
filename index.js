@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-const userRouter = require('./user');
+const authRouter = require('./auth');
 
 const port = process.env.PORT || 3001;
 
@@ -12,8 +12,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to the home page.');
 });
 
-app.use('/users', userRouter);
+app.use('/auth', authRouter);
 
 app.listen(port, () => {
-    console.log(`Ctrl + click => http://localhost:${port}`)
+    console.log(`http://localhost:${port} (<= Ctrl+click)`)
 });
