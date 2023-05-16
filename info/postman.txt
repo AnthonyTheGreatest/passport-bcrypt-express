@@ -3,7 +3,7 @@ http://localhost:3000/auth/signup
 (Body, raw, JSON)
 
 {
-    "email": "george@gmail.com",
+    "email": "michael@gmail.com",
     "password": "password"
 }
 

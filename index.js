@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 const authRouter = require('./auth');
+const userRouter = require('./user');
 
 const port = process.env.PORT || 3001;
 
@@ -13,6 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/users', userRouter);
 
 app.listen(port, () => {
     console.log(`http://localhost:${port} (<= Ctrl+click)`)
