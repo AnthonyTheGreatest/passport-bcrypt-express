@@ -6,7 +6,10 @@ config(passport);
 
 router.post(
     '/signup',
-    passport.authenticate('local-signup', { session: false }),
+    passport.authenticate(
+        'local-signup',
+        { session: false }
+    ),
     (req, res) => {
         res.json({ user: req.user });
     }
@@ -14,7 +17,10 @@ router.post(
 
 router.post(
     '/login',
-    passport.authenticate('local-login', { session: false }),
+    passport.authenticate(
+        'local-login',
+        { session: false }
+    ),
     (req, res) => {
         res.json({ user: req.user });
     }
