@@ -1,6 +1,14 @@
 const bcrypt = require('bcryptjs');
 const { query } = require('./dbConfig');
 
+const userById = async (id) => {
+    const { rows } = await query(
+        'SELECT * FROM users WHERE id = $1',
+        [id]
+    );
+    return rows.length ? rows[0] : false;
+}
+
 const emailExists = async (email) => {
     const { rows } = await query(
         'SELECT * FROM users WHERE email = $1',
@@ -26,6 +34,7 @@ const matchPassword = async (password, hashedPassword) => {
 };
 
 module.exports = {
+    userById,
     emailExists,
     createUser,
     matchPassword

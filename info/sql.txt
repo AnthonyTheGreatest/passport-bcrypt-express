@@ -1,11 +1,12 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100),
+    user_name VARCHAR(100),
     password VARCHAR(100)
 );
 
-INSERT INTO users (email, password)
-VALUES ('john@gmail.com', 'unhashedPassword'),
-	   ('doe@gmail.com', 'unhashedPassword');
+INSERT INTO users (email, user_name, password)
+VALUES ('john@gmail.com', 'John', 'unhashedPassword'),
+	   ('george@gmail.com', 'George', 'unhashedPassword');
 
 -- DROP TABLE users;

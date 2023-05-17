@@ -3,48 +3,30 @@ const app = express();
 require('dotenv').config();
 const passport = require('passport');
 const session = require('express-session');
-const store = new session.MemoryStore();
+const store = new session.MemoryStore(); // Storage for session data (for development and testing purposes).
 const authRouter = require('./auth');
 const userRouter = require('./user');
 
 const port = process.env.PORT || 3001;
 
+// Configure Express middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
-app.use(
-    session({
-      secret: "f4z4gs$Gcg",
-      cookie: { maxAge: 300000000, secure: false },
-      saveUninitialized: false,
-      resave: false,
-      store,
-    })
-);
-// app.use(passport.authenticate('session'));
-
+// Configure Passport middleware
+// (req.user; req.isAuthenticated(); req.logout();)
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Once serializeUser is configured, the user object will be stored in
-// Passport’s internal session: req.session.passport.user = {id: 'xyz'}.
-passport.serializeUser((user, done) => {
-    process.nextTick(() => {
-        done(null, {
-            id: user.id,
-            email: user.email,
-            password: user.password
-        });
-    });
-});
-
-// The fetched user object is attached to the request object
-// as req.user across our whole application (after deserializing).
-passport.deserializeUser((user, done) => {
-    process.nextTick(() => {
-        return done(null, user);
-    });
-});
+// Configure express-session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 300000000, secure: false },
+    store
+  }));
+app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.send('Welcome to the home page.');

@@ -7,3 +7,4 @@ module.exports = {
 };
 
 https://www.makeuseof.com/passport-authenticate-node-postgres/
+https://www.passportjs.org/concepts/authentication/middleware/
