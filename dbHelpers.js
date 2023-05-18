@@ -22,7 +22,7 @@ const createUser = async (email, user_name, password) => {
     const hash = await bcrypt.hash(password, salt);
     // Generated hashed password.
     const { rows } = await query(
-        // Use RETURNING clause so 'rows' isn't empty. (equivalent to: 'SELECT * FROM users WHERE email = $1')
+        // Use RETURNING clause so 'rows' returns the user. (equivalent to for example: 'SELECT * FROM users WHERE email = $1')
         'INSERT INTO users (email, user_name, password) VALUES ($1, $2, $3) RETURNING *',
         [email, user_name, hash]
     );
