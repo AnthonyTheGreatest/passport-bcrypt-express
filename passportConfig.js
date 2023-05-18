@@ -8,13 +8,15 @@ const config = (passport) => {
         new LocalStrategy(
             {
                 usernameField: 'email',
-                passwordField: 'password'
+                passwordField: 'password',
+                passReqToCallback: true // Allows passing additional fields to the callback from the request body.
             },
-            async (email, password, cb) => {
+            async (req, email, password, cb) => {
+                const { user_name } = req.body;
                 try {
                     const userExists = await helpers.emailExists(email);
                     if (userExists) return cb(null, false, { message: 'Email already in use.' });
-                    const user = await helpers.createUser(email, password);
+                    const user = await helpers.createUser(email, user_name, password);
                     return cb(null, user);
                 } catch (error) {
                     return cb(error);

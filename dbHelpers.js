@@ -17,16 +17,19 @@ const emailExists = async (email) => {
     return rows.length ? rows[0] : false;
 };
 
-const createUser = async (email, password) => {
+const createUser = async (email, user_name, password) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     // Generated hashed password.
     const { rows } = await query(
-        'INSERT INTO users (email, password) VALUES ($1, $2)',
-        [email, hash]
+        // Use RETURNING clause so 'rows' isn't empty. (equivalent to: 'SELECT * FROM users WHERE email = $1')
+        'INSERT INTO users (email, user_name, password) VALUES ($1, $2, $3) RETURNING *',
+        [email, user_name, hash]
     );
+    id = rows.id;
     return rows.length ? rows[0] : false;
 };
+
 
 const matchPassword = async (password, hashedPassword) => {
     return await bcrypt.compare(password, hashedPassword);

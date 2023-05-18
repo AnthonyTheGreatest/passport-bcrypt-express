@@ -9,6 +9,7 @@ router.post(
     passport.authenticate(
         'local-signup',
         {
+            // TODO: Create failureRedirect route with GET.
             failureRedirect: '/auth/signup',
             failureMessage: true //  The failureMessage option will add the message to req.session.messages.
         }
@@ -24,6 +25,7 @@ router.post(
     passport.authenticate(
         'local-login',
         {
+            // TODO: Create failureRedirect route with GET.
             failureRedirect: '/auth/login',
             failureMessage: true //  The failureMessage option will add the message to req.session.messages.
         }
@@ -31,6 +33,8 @@ router.post(
     (req, res) => {
         res.json({ user: req.user });
         // res.redirect('/~' + req.user.user_name);
+        // or
+        // res.redirect('users/dashboard');
     }
 );
 
