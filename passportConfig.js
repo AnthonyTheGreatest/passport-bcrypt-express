@@ -53,6 +53,8 @@ const config = (passport) => {
         const user = await helpers.userById(id);
         cb(null, user);
     });
+    // ?
+    return passport;
 };
 
 module.exports = {

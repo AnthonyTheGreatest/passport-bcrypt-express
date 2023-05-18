@@ -36,5 +36,5 @@ app.use('/auth', authRouter);
 app.use('/users', userRouter);
 
 app.listen(port, () => {
-    console.log(`http://localhost:${port} (<= Ctrl+click)`)
+    console.log(`(Ctrl+click =>) http://localhost:${port}`)
 });
